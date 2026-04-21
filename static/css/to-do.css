@@ -33,10 +33,12 @@ h1 {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 #task-title {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
     padding: 10px 15px;
     font-size: 16px;
     border: 2px solid #ddd;
@@ -55,6 +57,7 @@ h1 {
 }
 
 #task-form button {
+    flex: 0 0 auto;
     padding: 10px 20px;
     background-color: #007bff;
     border: none;
@@ -63,6 +66,17 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+    #task-form {
+        flex-direction: column;
+    }
+    #task-form button {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 #task-form button:hover {
