@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>App de Tareas (To-Do)</title>
+        <link rel="stylesheet" type="text/css" href="static/css/to-do.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Lista de Tareas</h1>
+            <form id="task-form">
+                <label for="task-title">Tarea</label>
+                <input type="text" id="task-title" placeholder="Escribe una nueva tarea">
+                <button type="submit">Agregar tarea</button>
+            </form>
+            <ul id="task-list">
 
-</body>
+            </ul>
+        </div>
+
+        <script src="static/js/app.js"></script>
+    </body>
 </html>
