@@ -116,17 +116,3 @@ h1 {
 .task-actions button:hover {
     color: #a71d2a;
 }
-
-.action-icon {
-    width: 20px !important;
-    height: 20px !important;
-    display: block;
-}
-
-.toggle-btn .action-icon {
-    fill: #28a475;
-}
-
-.remove-btn .action-icon {
-    fill: #ff0000;
-}
