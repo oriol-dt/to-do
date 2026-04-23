@@ -55,3 +55,37 @@ const renderTasks = () => {
 };
 
 renderTasks();
+
+const locationText = document.getElementById('location-text');
+
+// Definimos la función como asíncrona
+const getMyLocation = async () => {
+    if (!navigator.geolocation) {
+        if (locationText) locationText.innerText = "No soportado";
+        return;
+    }
+
+    // Creamos una Promesa para poder usar 'await' con la API de geolocalización
+    const getPosition = () => {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+    };
+
+    try {
+        // La ejecución se "pausa" aquí de forma asíncrona hasta que el usuario responda
+        const position = await getPosition();
+
+        const { latitude, longitude } = position.coords;
+
+        if (locationText) {
+            locationText.innerText = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+        }
+    } catch (error) {
+        console.warn("Error u omisión de geolocalización:", error.message);
+        if (locationText) locationText.innerText = "No disponible";
+    }
+};
+
+// Se lanza sin bloquear el hilo principal
+getMyLocation();
