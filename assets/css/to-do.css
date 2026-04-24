@@ -42,8 +42,7 @@ h1 {
 }
 
 #task-title {
-    flex: 1 1 auto;
-    min-width: 0;
+    flex: 1 1 100%;
     padding: 10px 15px;
     font-size: 16px;
     border: 2px solid #333;
@@ -96,6 +95,13 @@ h1 {
     flex: 1;
     font-size: 16px;
     color: #eee;
+}
+
+.task-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
 }
 
 /* Estado de tarea completada */
