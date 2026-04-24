@@ -1,8 +1,15 @@
 const taskForm = document.getElementById("task-form");
 const taskInput = document.getElementById("task-title");
 const taskList = document.getElementById("task-list");
+const editModal = document.getElementById("edit-modal");
+const editForm = document.getElementById("edit-form");
+const editInput = document.getElementById("edit-task-title");
+const cancelEditButton = document.getElementById("cancel-edit");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let editingTaskId = null;
+
+// Gestión de creación de tareas
 
 taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -23,14 +30,16 @@ taskForm.addEventListener("submit", (e) => {
     renderTasks();
 });
 
-function removeTask(taskId) {
+// Acciones de tarea: eliminar, completar y editar
+
+const removeTask = (taskId) => {
     if (!Number.isSafeInteger(taskId)) return;
     tasks = tasks.filter(task => task.id !== taskId);
     saveTask();
     renderTasks();
-}
+};
 
-function toggleTask(taskId) {
+const toggleTask = (taskId) => {
     if (!Number.isSafeInteger(taskId)) return;
     tasks = tasks.map(task =>
         task.id === taskId
@@ -39,7 +48,66 @@ function toggleTask(taskId) {
     );
     saveTask();
     renderTasks();
-}
+};
+
+const openEditModal = (taskId) => {
+    if (!Number.isSafeInteger(taskId)) return;
+    const taskToEdit = tasks.find(task => task.id === taskId);
+    if (!taskToEdit) return;
+
+    editingTaskId = taskId;
+    editInput.value = taskToEdit.title;
+    editModal.classList.remove("hidden");
+    editInput.focus();
+};
+
+const closeEditModal = () => {
+    editingTaskId = null;
+    editForm.reset();
+    editModal.classList.add("hidden");
+};
+
+const editTask = (taskId, title) => {
+    if (!Number.isSafeInteger(taskId)) return;
+
+    const normalizedTitle = title.trim();
+    if (normalizedTitle === "") return;
+
+    tasks = tasks.map(task =>
+        task.id === taskId
+            ? { ...task, title: normalizedTitle }
+            : task
+    );
+
+    saveTask();
+    renderTasks();
+};
+
+// Gestión del modal de edición
+
+editForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!Number.isSafeInteger(editingTaskId)) return;
+
+    editTask(editingTaskId, editInput.value);
+    closeEditModal();
+});
+
+cancelEditButton.addEventListener("click", closeEditModal);
+
+editModal.addEventListener("click", (e) => {
+    if (e.target === editModal) {
+        closeEditModal();
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !editModal.classList.contains("hidden")) {
+        closeEditModal();
+    }
+});
+
+// Persistencia y renderizado
 
 const saveTask = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -74,6 +142,15 @@ const renderTasks = () => {
         toggleButton.dataset.taskId = String(task.id);
         toggleButton.addEventListener("click", () => toggleTask(Number(toggleButton.dataset.taskId)));
         taskActions.appendChild(toggleButton);
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.classList.add("edit-btn");
+        editButton.title = "Editar tarea";
+        editButton.textContent = "✏️";
+        editButton.dataset.taskId = String(task.id);
+        editButton.addEventListener("click", () => openEditModal(Number(editButton.dataset.taskId)));
+        taskActions.appendChild(editButton);
 
         const removeButton = document.createElement("button");
         removeButton.type = "button";

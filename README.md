@@ -5,6 +5,7 @@ Aplicación web sencilla para gestionar tareas desde el navegador.
 ### Funcionalidades
 - Crear tareas.
 - Marcar tareas como completadas o volverlas a pendiente.
+- Editar tareas mediante modal.
 - Eliminar tareas.
 - Persistencia en `localStorage`.
 
@@ -16,7 +17,7 @@ Aplicación web sencilla para gestionar tareas desde el navegador.
 ### Cómo usar
 1. Abre `index.html` en tu navegador.
 2. Escribe una tarea y pulsa **Crear**.
-3. Usa los botones de cada tarea para completar/revertir o eliminar.
+3. Usa los botones de cada tarea para completar/revertir, editar o eliminar.
 
 ### Notas
 - Las tareas se guardan en el navegador mediante `localStorage`.
