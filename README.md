@@ -15,7 +15,7 @@ Aplicación web sencilla para gestionar tareas desde el navegador.
 - `assets/css/to-do.css`: estilos de la app.
 
 ### Cómo usar
-1. Abre `index.html` en tu navegador.
+1. Abre [`index.html`](https://oriol-dt-js.netlify.app) en tu navegador.
 2. Escribe una tarea y pulsa **Crear**.
 3. Usa los botones de cada tarea para completar/revertir, editar o eliminar.
 
